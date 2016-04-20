@@ -6,7 +6,7 @@ if (process.env.DATABASE_URL) {
   pg.defaults.ssl = true;
   connectionString = process.env.DATABASE_URL;
 } else {
-  connectionString = 'postgres://localhost:5432/tuesday';
+  connectionString = 'postgres://localhost:5432/peer-sql';
 }
 
 function initializeDB(){
@@ -17,8 +17,11 @@ function initializeDB(){
     } else {
       var query = client.query('CREATE TABLE IF NOT EXISTS people (' +
       'id SERIAL PRIMARY KEY,' +
-      'name varchar(80) NOT NULL,' +
-      'address text);');
+      'name varchar(255) NOT NULL,' +
+      'address varchar(255) NOT NULL,' +
+      'city varchar(100) NOT NULL,' +
+      'state varchar(3) NOT NULL,' +
+      'zip_code varchar(5) NOT NULL);');
 
       query.on('end', function(){
         console.log('Successfully ensured schema exists');
